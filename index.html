@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Server Event Vote</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Wähle dein Lieblings-Event!</h1>
+    <div class="vote-container">
+        <div class="event" onclick="vote('bedwars')">
+            <h2>⚔️ Bedwars</h2>
+            <p>Stelle dich anderen Spielern in einem epischen Kampf!</p>
+        </div>
+        <div class="event" onclick="vote('openworld')">
+            <h2>💰 Open World</h2>
+            <p>Finde versteckte Schätze auf der ganzen Map!</p>
+        </div>
+        <div class="event" onclick="vote('hideandseek')">
+            <h2>☁️ Hide and Seek</h2>
+            <p>Vestecke dich oder suche andere Spieler!</p>
+        </div>
+    </div>
+    <p id="response"></p>
+
+    <script>
+        function vote(eventName) {
+            fetch('vote.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'event=' + encodeURIComponent(eventName)
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('response').textContent = data;
+            });
+        }
+    </script>
+</body>
+</html>
